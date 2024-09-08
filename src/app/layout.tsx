@@ -1,8 +1,21 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import {
+  ClerkProvider,
+  RedirectToSignIn,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs'
+const font = Poppins({
+  subsets: ['latin'],
+  weight: '500'
+})
+import { ThemeProvider } from "@/components/providers/theme-provider"
+import { ModalProvider } from "@/components/providers/modal-provider";
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +28,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <ClerkProvider>
+       <html lang="en">
+       <body className={font.className}>
+<SignedOut>
+            <RedirectToSignIn />
+          </SignedOut>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+
+            <ModalProvider />
+            <Toaster />
+
+   
+   {children}
+   </ThemeProvider>
+
+   </body>
     </html>
+    </ClerkProvider>
+
   );
 }

@@ -1,0 +1,163 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
+}
+model Profile {
+  id String @id @default(cuid())
+  name String
+  imageUrl String @db.Text
+  email String @db.Text
+  userId String @unique
+  stores Store[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+
+model Store {
+  id String @id @default(cuid())
+  name String
+  imageUrl String?
+  
+  profileId String
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  billboards Billboard[] @relation("billboardWithStore")
+  categories Category[] @relation("StoreToCategory")
+  sizes Size[]  @relation("StoreToSize")
+  colors Color[]  @relation("StoreToColor")
+  products Product[] @relation("StoreToProduct")
+  orders Order[] @relation("StoreToOrder")
+
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
+
+}
+
+model Billboard {
+  id String @id @default(cuid())
+  label String
+  imageUrl String @db.Text
+  storeId String 
+  categories Category[]
+  store Store @relation("billboardWithStore", fields: [storeId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([storeId])
+}
+model Category {
+  id String @id @default(cuid())
+  name String 
+  billboardId String
+  billboard Billboard @relation(fields: [billboardId], references: [id], onDelete: Cascade)
+ products Product[]
+  storeId String
+  store Store @relation("StoreToCategory", fields: [storeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([billboardId])
+  @@index([storeId])
+
+}
+model Size {
+  id String @id @default(cuid())
+  name String
+  value String
+  storeId String
+   products Product[]
+  store Store @relation("StoreToSize", fields: [storeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+model Color {
+  id String @id @default(cuid())
+  name String
+  value String
+  storeId String
+  products Product[]
+  store Store @relation("StoreToColor", fields: [storeId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+model Product {
+  id String @id @default(cuid())
+  name String
+  price Decimal
+  isFeatured Boolean @default(false)
+  isArchived Boolean @default(false)
+  colorId String
+  color Color @relation(fields: [colorId], references: [id])
+    sizeId String
+  size Size @relation(fields: [sizeId], references: [id])
+    categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+    storeId String
+  store Store @relation("StoreToProduct",fields: [storeId], references: [id],onDelete: Cascade)
+  images Image[]
+  orderItems OrderItem[]
+ createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([colorId])
+  @@index([sizeId])
+  @@index([categoryId])
+  @@index([storeId])
+
+
+}
+
+model Image {
+  id String @id @default(cuid())
+  url String @db.Text
+  productId String
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+ createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([productId])
+}
+
+model Order{
+    id String @id @default(cuid())
+    storeId String
+    store Store @relation("StoreToOrder", fields: [storeId], references: [id], onDelete: Cascade)
+    orderItems OrderItem[]
+    isPaid Boolean @default(false)
+    phone String @default("")
+    address String @default("")
+     createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([storeId])
+    
+ 
+}
+model OrderItem {
+      id String @id @default(cuid())
+      orderId String
+      order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+      productId String
+      product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+     createdAt DateTime @default(now())
+      updatedAt DateTime @updatedAt
+   @@index([orderId])
+  @@index([productId])
+
+}
