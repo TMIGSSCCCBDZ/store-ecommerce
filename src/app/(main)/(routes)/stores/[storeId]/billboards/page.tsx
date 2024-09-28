@@ -19,6 +19,7 @@ const page = async({params}: PageProps) => {
     if (!storeId) {
         return redirect("/")
     }
+    
 const store = await db.store.findUnique({
     where:{
         id: storeId,
