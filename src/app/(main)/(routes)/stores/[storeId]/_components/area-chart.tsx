@@ -22,7 +22,7 @@ export const description = "A bar chart"
 
 
 interface AreaChartProps {
-    chartData: [{[month:string]: number}]
+    chartData: {month:string, price: number}[]
 }
 
 const chartConfig = {
