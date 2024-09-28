@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import React from 'react'
 import { BillBoardFormCreate } from '../_components/billboard-form-create'
 import { getProfile } from '@/lib/get-profile'
+import { auth } from '@clerk/nextjs/server'
 
 interface PageProps {
     params: {
@@ -13,6 +14,12 @@ const page = async({params}: PageProps) => {
     const profile = await getProfile()
     const storeId = params.storeId
     const colorId = params.colorId
+    if (!profile) {
+        return auth().redirectToSignIn()
+    }
+    if(!storeId){
+        return redirect("/")
+    }
     const store = await db.store.findUnique({
         where:{
             id: storeId,
