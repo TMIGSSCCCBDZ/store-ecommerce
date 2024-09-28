@@ -163,7 +163,7 @@ export const BillBoardFormCreate = ({category, store, billboards}: BillboardProp
                 <SelectContent>
              
                   {billboards.map(billboard => (
-                  <SelectItem value={billboard.id}>{billboard.label}</SelectItem>
+                  <SelectItem key={billboard.id} value={billboard.id}>{billboard.label}</SelectItem>
 
                   ))}
                 

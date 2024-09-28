@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Plus } from "lucide-react"
 import { redirect, useParams } from "next/navigation"
 import { useRouter } from "next/navigation"
-import { BillBoardColumn, columns } from "./column"
+import { BillBoardColumn, useColumns } from "./column"
 import { Separator } from "@/components/ui/separator"
 import { DataTable } from "@/components/ui/data-table"
 import { ApiList } from "@/components/api-list"
@@ -35,7 +35,7 @@ if (!storeId) {
             </Button>
         </div>
         <Separator className="my-3" />
-        <DataTable columns={columns} data={billboards} filterKey="label" />
+        <DataTable columns={useColumns} data={billboards} filterKey="label" />
         <Separator className="my-3" />
         <ApiList entityName="billboards" entityNameId="billboardId" storeId={storeId}  />
        </>

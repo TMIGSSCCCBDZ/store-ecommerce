@@ -24,7 +24,7 @@ export type BillBoardColumn = {
  
 }
 
-export const columns: ColumnDef<BillBoardColumn>[] = [
+export const useColumns: ColumnDef<BillBoardColumn>[] = [
   {
     accessorKey: "label",
     header: "Label",
