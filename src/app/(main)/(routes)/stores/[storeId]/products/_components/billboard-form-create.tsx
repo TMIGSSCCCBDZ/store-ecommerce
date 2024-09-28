@@ -276,7 +276,7 @@ export const BillBoardFormCreate = ({product, store, categories, sizes, colors}:
                 <SelectContent>
              
                   {categories?.map(category => (
-                  <SelectItem value={category?.id}>{category?.name}</SelectItem>
+                  <SelectItem key={category.id} value={category?.id}>{category?.name}</SelectItem>
 
                   ))}
                 
@@ -302,7 +302,7 @@ export const BillBoardFormCreate = ({product, store, categories, sizes, colors}:
                 <SelectContent>
              
                   {sizes?.map(size => (
-                  <SelectItem value={size?.id}>{size?.name}</SelectItem>
+                  <SelectItem key={size.id} value={size?.id}>{size?.name}</SelectItem>
 
                   ))}
                 
@@ -328,7 +328,7 @@ export const BillBoardFormCreate = ({product, store, categories, sizes, colors}:
                 <SelectContent>
              
                   {colors?.map(color => (
-                  <SelectItem value={color?.id}>{color?.name}</SelectItem>
+                  <SelectItem key={color.id} value={color?.id}>{color?.name}</SelectItem>
 
                   ))}
                 

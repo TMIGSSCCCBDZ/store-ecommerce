@@ -64,7 +64,7 @@ export const InitialModal = () => {
           <DialogHeader>
             <DialogTitle>Create store</DialogTitle>
             <DialogDescription>
-              you don't have any stores yet, start by creating one here
+              you do not have any stores yet, start by creating one here
             </DialogDescription>
           </DialogHeader>
           <Form {...form}>
