@@ -52,7 +52,7 @@ const orders = await db.order.findMany({
     phone: order.phone,
     address: order.address,
     isPaid: order.isPaid,
-    products: order.orderItems.filter(orderitem => orderitem.product.name !== null ).join(', '),
+    products: order.orderItems.map(orderitem => orderitem.product.name  ). join(', '),
     price: formatter.format(order.orderItems.reduce((total, item) => total += Number(item.product.price) ,0)),
     createdAt: format(new Date(order.createdAt), FORMATED_DATE)
 
