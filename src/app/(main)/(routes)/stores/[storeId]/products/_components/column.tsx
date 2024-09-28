@@ -75,7 +75,8 @@ export const useColumns: ColumnDef<BillBoardColumn>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const product = row.original
+     const CellAction = () => {
+       const product = row.original
 
       
  const router = useRouter()
@@ -110,6 +111,7 @@ export const useColumns: ColumnDef<BillBoardColumn>[] = [
           </DropdownMenuContent>
         </DropdownMenu>
       )
+     }
     },
   },
  
