@@ -17,7 +17,7 @@ interface ModalData {
     sizeId?: string
     colorId?:string
     productId?:string
-    orderId: string
+    orderId?: string
 
 
 }

@@ -25,7 +25,7 @@ export type BillBoardColumn = {
  
 }
 
-export const useColumns: ColumnDef<BillBoardColumn>[] = [
+export const columns: ColumnDef<BillBoardColumn>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -72,7 +72,7 @@ export const useColumns: ColumnDef<BillBoardColumn>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={()=> {router.push(`/stores/${storeId}/categories/${category.id}`)}}>Edit</DropdownMenuItem>
-            <DropdownMenuItem onClick={()=> {onOpen('deleteBillboard',{storeId: storeId as any, categoryId: category.id})}} >Delete</DropdownMenuItem>
+            <DropdownMenuItem onClick={()=> {onOpen("deleteCategory",{storeId: storeId as any, categoryId: category.id})}} >Delete</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

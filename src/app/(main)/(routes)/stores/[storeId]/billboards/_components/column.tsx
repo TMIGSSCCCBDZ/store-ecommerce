@@ -24,7 +24,8 @@ export type BillBoardColumn = {
  
 }
 
-export const useColumns: ColumnDef<BillBoardColumn>[] = [
+export const columns: ColumnDef<BillBoardColumn>[] = [
+  
   {
     accessorKey: "label",
     header: "Label",
@@ -36,12 +37,13 @@ export const useColumns: ColumnDef<BillBoardColumn>[] = [
   {
     id: "actions",
     cell: ({ row }) => {
-      const billboard = row.original
+      const CellAction = () => {
+          const billboard = row.original
 
-      
- const router = useRouter()
+       const router = useRouter()
  const params = useParams()
  const storeId = params.storeId
+
  const {onOpen} = useModal()
       return (
         <DropdownMenu>
@@ -71,6 +73,8 @@ export const useColumns: ColumnDef<BillBoardColumn>[] = [
           </DropdownMenuContent>
         </DropdownMenu>
       )
+      }
+    
     },
   },
  
