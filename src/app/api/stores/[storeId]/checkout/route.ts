@@ -80,8 +80,8 @@ export const POST = async(req: Request, {params}:{params:{storeId: string}}) => 
             phone_number_collection:{
                 enabled: true
             },
-            success_url: `${process.env.FRONT_END_STORE}/?success=1`,
-            cancel_url: `${process.env.FRONT_END_STORE}/?cancel=1`,
+            success_url: `${process.env.FRONT_END_STORE}?success=1`,
+            cancel_url: `${process.env.FRONT_END_STORE}?cancel=1`,
           metadata:{
             orderId: order.id
           }
